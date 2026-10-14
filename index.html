@@ -4,244 +4,188 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Mário Luiz · Desenvolvedor</title>
-<meta name="description" content="Mário Luiz, desenvolvedor de software. Sites, aplicativos, sistemas e automações sob medida.">
+<meta name="description" content="Mário Luiz, desenvolvedor de software. Sites, aplicativos, sistemas, APIs e automações sob medida.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #F4F3EE;
-    --ink: #0E0E0E;
-    --muted: #6A6A64;
-    --line: #0E0E0E;
-    --soft: rgba(14,14,14,.08);
+    --bg: #F7F8FB;
+    --card: #FFFFFF;
+    --fg: #121624;
+    --muted: #5F6678;
+    --line: #E4E7EF;
     --accent: #2A3DFF;
-    --on-accent: #F4F3EE;
+    --accent-soft: rgba(42,61,255,.08);
+    --shadow: 0 1px 2px rgba(18,22,36,.04), 0 8px 24px rgba(18,22,36,.06);
+    --radius: 18px;
     --mono: "JetBrains Mono", ui-monospace, monospace;
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-      --bg: #0E0E0E; --ink: #ECEBE4; --muted: #8E8D86; --line: #ECEBE4; --soft: rgba(236,235,228,.08);
-      --accent: #4657FF; --on-accent: #F4F3EE;
+      --bg: #0C0E14; --card: #141822; --fg: #E9ECF4; --muted: #949BAE; --line: #232838;
+      --accent: #6B7BFF; --accent-soft: rgba(107,123,255,.12); --shadow: none;
     }
   }
   :root[data-theme="dark"] {
-    --bg: #0E0E0E; --ink: #ECEBE4; --muted: #8E8D86; --line: #ECEBE4; --soft: rgba(236,235,228,.08);
-    --accent: #4657FF; --on-accent: #F4F3EE;
+    --bg: #0C0E14; --card: #141822; --fg: #E9ECF4; --muted: #949BAE; --line: #232838;
+    --accent: #6B7BFF; --accent-soft: rgba(107,123,255,.12); --shadow: none;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
   [hidden] { display: none !important; }
-  html { scroll-behavior: smooth; }
+  html { scroll-behavior: smooth; scroll-padding-top: 72px; }
   html, body { overflow-x: hidden; }
   body {
-    background: var(--bg); color: var(--ink);
-    font: 400 17px/1.55 Archivo, system-ui, sans-serif;
+    background: var(--bg); color: var(--fg);
+    font: 400 16px/1.6 "Plus Jakarta Sans", system-ui, sans-serif;
     -webkit-font-smoothing: antialiased; transition: background .25s, color .25s;
   }
   a { color: inherit; text-decoration: none; }
   button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
-  ::selection { background: var(--accent); color: var(--on-accent); }
-  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
-  .mono { font-family: var(--mono); font-size: .78rem; letter-spacing: .02em; text-transform: uppercase; }
-  .wrap { padding: 0 32px; max-width: 1440px; margin: 0 auto; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 8px; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+  .muted { color: var(--muted); }
+  .eyebrow { font-family: var(--mono); font-size: .75rem; color: var(--accent); letter-spacing: .04em; text-transform: uppercase; }
+  h2 { font-size: clamp(1.6rem, 3vw, 2.1rem); font-weight: 700; letter-spacing: -.025em; line-height: 1.15; margin-top: 8px; }
+  section { padding: 72px 0; }
+  .section-h { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; flex-wrap: wrap; margin-bottom: 28px; }
 
-  /* ---------- Topo ---------- */
+  /* Botões */
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px; padding: 11px 18px; border-radius: 999px;
+    font-weight: 600; font-size: .92rem; border: 1px solid var(--line); background: var(--card); transition: transform .15s, border-color .15s, background .15s;
+  }
+  .btn:hover { border-color: var(--accent); transform: translateY(-1px); }
+  .btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .btn.primary:hover { filter: brightness(1.08); }
+  .btn.sm { padding: 7px 13px; font-size: .82rem; }
+
+  /* Topo */
   header {
-    position: sticky; top: 0; z-index: 20; background: var(--bg);
+    position: sticky; top: 0; z-index: 20;
+    background: color-mix(in srgb, var(--bg) 85%, transparent); backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--line);
   }
-  .bar { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; height: 56px; }
-  .logo { font-weight: 900; font-size: 1.15rem; letter-spacing: -.03em; }
-  .logo span { color: var(--accent); }
-  .bar nav { display: flex; gap: 28px; }
-  .bar nav a { position: relative; }
-  .bar nav a::after { content: ""; position: absolute; left: 0; right: 100%; bottom: -3px; height: 1px; background: currentColor; transition: right .25s; }
-  .bar nav a:hover::after { right: 0; }
-  .tools { display: flex; justify-content: flex-end; gap: 8px; }
-  .tool { border: 1px solid var(--line); padding: 6px 10px; }
-  .tool:hover { background: var(--ink); color: var(--bg); }
-  .tool .dot { display: inline-block; width: 8px; height: 8px; background: var(--accent); margin-right: 6px; vertical-align: 0; }
-  .menu { display: none; }
+  .bar { display: flex; align-items: center; justify-content: space-between; height: 62px; gap: 16px; }
+  .logo { font-weight: 700; letter-spacing: -.02em; display: flex; align-items: center; gap: 10px; }
+  .logo i { width: 30px; height: 30px; border-radius: 9px; background: var(--accent); color: #fff; display: grid; place-items: center; font-style: normal; font-size: .8rem; }
+  .bar nav { display: flex; gap: 6px; }
+  .bar nav a { padding: 7px 12px; border-radius: 999px; font-size: .9rem; color: var(--muted); font-weight: 500; }
+  .bar nav a:hover { color: var(--fg); background: var(--accent-soft); }
+  .icon-btn { width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--line); display: grid; place-items: center; background: var(--card); }
+  .menu-btn { display: none; }
 
-  /* ---------- Hero ---------- */
-  .hero { border-bottom: 1px solid var(--line); }
-  .hero-top { display: flex; justify-content: space-between; gap: 16px; padding: 28px 0 0; flex-wrap: wrap; }
-  .status::before { content: ""; display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); margin-right: 8px; animation: blink 1.6s infinite; }
-  @keyframes blink { 50% { opacity: .2; } }
-  .name {
-    font-weight: 900; text-transform: uppercase; line-height: .82; letter-spacing: -.055em;
-    font-size: clamp(4.2rem, 16.4vw, 15.5rem); margin: 18px 0 0 -.04em; white-space: nowrap;
+  /* Hero */
+  .hero { padding: 80px 0 64px; }
+  .hero-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 48px; align-items: center; }
+  .badge { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); font-size: .82rem; font-weight: 600; }
+  .badge::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; animation: pulse 2s infinite; }
+  @keyframes pulse { 50% { opacity: .35; } }
+  .hero h1 { font-size: clamp(2.6rem, 6vw, 4.2rem); font-weight: 700; letter-spacing: -.04em; line-height: 1.02; margin: 20px 0 16px; }
+  .hero h1 span { color: var(--accent); }
+  .hero p.lead { font-size: 1.12rem; color: var(--muted); max-width: 48ch; margin-bottom: 28px; }
+  .cta { display: flex; gap: 10px; flex-wrap: wrap; }
+  .profile { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); padding: 24px; }
+  .avatar {
+    width: 72px; height: 72px; border-radius: 50%; display: grid; place-items: center; font-weight: 700; font-size: 1.4rem; color: #fff;
+    background: linear-gradient(135deg, var(--accent), #8A5CFF);
   }
-  .name .l2 { display: block; padding-left: 12vw; }
-  .name .ac { color: var(--accent); }
-  .hero-grid { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--line); margin-top: 32px; }
-  .hero-grid > div { padding: 18px 18px 22px 0; }
-  .hero-grid > div + div { border-left: 1px solid var(--line); padding-left: 18px; }
-  .hero-grid p { margin-top: 8px; font-size: 1.05rem; max-width: 30ch; }
-  .hero-grid .big { font-size: 1.5rem; font-weight: 500; line-height: 1.2; }
-  .cta-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
-  .btn {
-    display: inline-flex; align-items: center; gap: 10px; padding: 12px 18px; border: 1px solid var(--line);
-    font-family: var(--mono); font-size: .8rem; text-transform: uppercase; transition: background .15s, color .15s;
-  }
-  .btn:hover { background: var(--ink); color: var(--bg); }
-  .btn.solid { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
-  .btn.solid:hover { background: var(--ink); color: var(--bg); border-color: var(--ink); }
-
-  /* ---------- Faixa ---------- */
-  .ticker { background: var(--accent); color: var(--on-accent); border-bottom: 1px solid var(--line); overflow: hidden; white-space: nowrap; }
-  .ticker-track { display: inline-flex; animation: run 32s linear infinite; padding: 14px 0; }
-  .ticker span { font-weight: 800; font-size: 1.4rem; text-transform: uppercase; letter-spacing: -.01em; padding: 0 22px; }
-  .ticker span::after { content: "✱"; margin-left: 44px; font-weight: 400; }
-  @keyframes run { to { transform: translateX(-50%); } }
-
-  /* ---------- Seções ---------- */
-  section.block { border-bottom: 1px solid var(--line); padding: 88px 0; }
-  .head { display: grid; grid-template-columns: 220px 1fr; gap: 24px; margin-bottom: 48px; align-items: start; }
-  .head h2 { font-weight: 900; font-size: clamp(2.4rem, 6vw, 5rem); line-height: .92; letter-spacing: -.045em; text-transform: uppercase; }
-  .head .mono { padding-top: 10px; color: var(--muted); }
-
-  /* Sobre */
-  .about { display: grid; grid-template-columns: 220px 1fr 1fr; gap: 24px; }
-  .photo {
-    aspect-ratio: 3/4; border: 1px solid var(--line); position: relative;
-    background: repeating-linear-gradient(-45deg, transparent 0 9px, var(--soft) 9px 10px);
-    display: grid; place-items: center; color: var(--muted);
-  }
-  .photo::before, .photo::after { content: ""; position: absolute; background: var(--line); }
-  .photo::before { left: 50%; top: 0; bottom: 0; width: 1px; opacity: .15; }
-  .photo::after { top: 50%; left: 0; right: 0; height: 1px; opacity: .15; }
-  .about .lead { font-size: clamp(1.4rem, 2.4vw, 2rem); line-height: 1.2; font-weight: 500; letter-spacing: -.02em; }
-  .about .lead em { font-style: normal; background: var(--accent); color: var(--on-accent); padding: 0 .15em; }
-  .about .text p + p { margin-top: 1em; }
-  .about .text { color: var(--muted); }
-  .facts { margin-top: 28px; border-top: 1px solid var(--line); }
-  .facts div { display: flex; justify-content: space-between; gap: 16px; padding: 10px 0; border-bottom: 1px solid var(--soft); }
-  .facts dt { color: var(--muted); }
-
-  /* Serviços */
-  .svc { border-top: 1px solid var(--line); }
-  .svc-row {
-    display: grid; grid-template-columns: 220px 1fr 1.1fr; gap: 24px; align-items: baseline;
-    padding: 26px 0; border-bottom: 1px solid var(--line); transition: background .2s, color .2s, padding .2s;
-  }
-  .svc-row:hover { background: var(--ink); color: var(--bg); padding-left: 16px; padding-right: 16px; }
-  .svc-row:hover .mono, .svc-row:hover p { color: var(--bg); opacity: .75; }
-  .svc-row h3 { font-weight: 800; font-size: clamp(1.5rem, 3vw, 2.4rem); letter-spacing: -.03em; line-height: 1; }
-  .svc-row p { color: var(--muted); }
-  .svc-row .mono { color: var(--muted); }
+  .profile h3 { margin-top: 14px; font-size: 1.1rem; }
+  .profile dl { margin-top: 16px; display: grid; gap: 10px; font-size: .9rem; }
+  .profile dl div { display: flex; justify-content: space-between; gap: 12px; padding-top: 10px; border-top: 1px solid var(--line); }
+  .profile dt { color: var(--muted); }
+  .profile dd { font-weight: 500; text-align: right; }
 
   /* Projetos */
-  .filters { display: flex; flex-wrap: wrap; gap: 6px; margin: -24px 0 28px 244px; }
-  .chip { border: 1px solid var(--line); padding: 6px 12px; }
-  .chip[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
-  .projects { border-top: 1px solid var(--line); }
-  .proj { border-bottom: 1px solid var(--line); }
+  .filters { display: flex; gap: 6px; flex-wrap: wrap; }
+  .chip { padding: 7px 14px; border-radius: 999px; border: 1px solid var(--line); background: var(--card); font-size: .85rem; font-weight: 500; color: var(--muted); }
+  .chip[aria-pressed="true"] { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+  .projects { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .proj {
+    background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow);
+    display: flex; flex-direction: column; overflow: hidden; transition: transform .2s, border-color .2s;
+  }
+  .proj:hover { transform: translateY(-3px); border-color: color-mix(in srgb, var(--accent) 40%, var(--line)); }
   .proj.hidden { display: none; }
-  .proj-btn {
-    width: 100%; text-align: left; display: grid; grid-template-columns: 220px 1fr auto 48px; gap: 24px;
-    align-items: center; padding: 28px 0; position: relative; overflow: hidden;
-  }
-  .proj-btn::before {
-    content: ""; position: absolute; inset: 0; background: var(--accent); transform: scaleY(0); transform-origin: bottom;
-    transition: transform .3s cubic-bezier(.7,0,.2,1); z-index: -1;
-  }
-  .proj-btn { z-index: 0; }
-  .proj-btn:hover::before, .proj.open .proj-btn::before { transform: scaleY(1); }
-  .proj-btn:hover, .proj.open .proj-btn { color: var(--on-accent); }
-  .proj-btn:hover .mono, .proj.open .proj-btn .mono { color: var(--on-accent); }
-  .proj-btn h3 { font-weight: 900; font-size: clamp(1.8rem, 4.6vw, 4rem); letter-spacing: -.045em; line-height: .95; text-transform: uppercase; }
-  .proj-btn .mono { color: var(--muted); }
-  .proj-btn .arrow { font-size: 2rem; font-weight: 400; transition: transform .3s; justify-self: end; padding-right: 8px; }
-  .proj.open .arrow { transform: rotate(45deg); }
-  .proj-body { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .35s ease; }
-  .proj.open .proj-body { grid-template-rows: 1fr; }
-  .proj-inner { overflow: hidden; }
-  .proj-content { display: grid; grid-template-columns: 220px repeat(3, 1fr); gap: 24px; padding: 28px 0 36px; }
-  .proj-content h4 { margin-bottom: 8px; color: var(--muted); font-weight: 500; }
-  .proj-content p { font-size: .98rem; }
+  .thumb { height: 120px; display: grid; place-items: center; font-size: 2.2rem; background: var(--tint); position: relative; overflow: hidden; }
+  .thumb::after { content: ""; position: absolute; width: 180px; height: 180px; border-radius: 50%; background: rgba(255,255,255,.18); right: -50px; top: -70px; }
+  .proj-body { padding: 18px 20px 20px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+  .proj .tag { font-family: var(--mono); font-size: .72rem; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
+  .proj h3 { font-size: 1.12rem; font-weight: 700; letter-spacing: -.01em; }
+  .proj p { color: var(--muted); font-size: .92rem; flex: 1; }
   .stack { display: flex; flex-wrap: wrap; gap: 6px; }
-  .stack span { border: 1px solid var(--line); padding: 3px 8px; }
-  .links { grid-column: 2 / -1; display: flex; gap: 10px; flex-wrap: wrap; }
+  .stack span { font-size: .74rem; padding: 3px 9px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); font-weight: 500; }
+  .proj .links { display: flex; gap: 8px; margin-top: 4px; }
 
-  /* Processo */
-  .steps { display: grid; grid-template-columns: repeat(5, 1fr); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
-  .step { border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 22px 18px 28px; min-height: 240px; display: flex; flex-direction: column; justify-content: space-between; transition: background .2s, color .2s; }
-  .step:hover { background: var(--accent); color: var(--on-accent); }
-  .step:hover .mono, .step:hover p { color: var(--on-accent); }
-  .step .num { font-weight: 900; font-size: 3.4rem; line-height: 1; letter-spacing: -.05em; }
-  .step h3 { font-weight: 800; font-size: 1.3rem; text-transform: uppercase; letter-spacing: -.02em; margin-bottom: 6px; }
-  .step p { color: var(--muted); font-size: .95rem; }
+  /* Serviços + Stack */
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .panel { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); padding: 26px; }
+  .panel h3 { font-size: 1rem; margin-bottom: 16px; }
+  .svc { display: grid; gap: 4px; }
+  .svc div { display: grid; grid-template-columns: 40px 1fr; gap: 12px; padding: 12px 0; border-top: 1px solid var(--line); }
+  .svc div:first-child { border-top: 0; padding-top: 0; }
+  .svc i { width: 40px; height: 40px; border-radius: 12px; background: var(--accent-soft); display: grid; place-items: center; font-style: normal; }
+  .svc b { display: block; font-weight: 600; }
+  .svc span { color: var(--muted); font-size: .9rem; }
+  .tech { display: grid; gap: 18px; }
+  .tech h4 { font-size: .78rem; font-family: var(--mono); color: var(--muted); text-transform: uppercase; font-weight: 500; margin-bottom: 8px; }
+  .tech .stack span { font-size: .82rem; padding: 5px 11px; }
 
-  /* Ferramentas */
-  .tools-grid { display: grid; grid-template-columns: 220px repeat(3, 1fr); gap: 24px; }
-  .tools-grid h3 { font-family: var(--mono); font-size: .78rem; text-transform: uppercase; font-weight: 500; color: var(--muted); margin-bottom: 14px; }
-  .tools-grid ul { list-style: none; border-top: 1px solid var(--line); }
-  .tools-grid li { padding: 10px 0; border-bottom: 1px solid var(--soft); display: flex; justify-content: space-between; }
-  .tools-grid li::after { content: "↗"; color: var(--muted); font-size: .85rem; }
+  /* Sobre + processo */
+  .about { display: grid; grid-template-columns: 1fr 1.2fr; gap: 48px; align-items: start; }
+  .about p + p { margin-top: 14px; }
+  .about .text { color: var(--muted); }
+  .steps { display: grid; gap: 10px; counter-reset: s; }
+  .step { display: grid; grid-template-columns: 34px 1fr; gap: 14px; align-items: start; padding: 14px 16px; background: var(--card); border: 1px solid var(--line); border-radius: 14px; }
+  .step::before { counter-increment: s; content: counter(s); width: 34px; height: 34px; border-radius: 10px; background: var(--accent); color: #fff; display: grid; place-items: center; font-weight: 600; font-size: .9rem; }
+  .step b { display: block; font-weight: 600; }
+  .step span { color: var(--muted); font-size: .9rem; }
 
   /* Contato */
-  .contact { padding: 96px 0 64px; border-bottom: 1px solid var(--line); }
-  .contact .mono { color: var(--muted); }
-  .mega {
-    display: block; font-weight: 900; text-transform: uppercase; letter-spacing: -.055em; line-height: .85;
-    font-size: clamp(3.4rem, 12.5vw, 12rem); margin: 18px 0 40px; transition: color .2s;
+  .contact {
+    background: linear-gradient(135deg, var(--accent), #6A4BFF); color: #fff; border-radius: 26px; padding: 48px;
+    display: grid; grid-template-columns: 1.3fr 1fr; gap: 32px; align-items: center;
   }
-  .mega:hover { color: var(--accent); }
-  .mega .arr { display: inline-block; transition: transform .3s; }
-  .mega:hover .arr { transform: translateX(.15em) rotate(-45deg); }
-  .contact-grid { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--line); }
-  .contact-grid > * { padding: 18px 18px 18px 0; }
-  .contact-grid > * + * { border-left: 1px solid var(--line); padding-left: 18px; }
-  .contact-grid a:hover { color: var(--accent); }
-  .contact-grid b { display: block; font-weight: 500; font-size: 1.1rem; margin-top: 6px; }
+  .contact h2 { margin: 0 0 10px; }
+  .contact p { opacity: .85; }
+  .contact .list { display: grid; gap: 8px; }
+  .contact .list a {
+    display: flex; justify-content: space-between; align-items: center; padding: 13px 16px; border-radius: 14px;
+    background: rgba(255,255,255,.12); font-weight: 500; transition: background .15s;
+  }
+  .contact .list a:hover { background: rgba(255,255,255,.22); }
+  .contact .list small { opacity: .75; font-weight: 400; }
 
-  footer { padding: 22px 0 28px; }
-  footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; color: var(--muted); }
+  footer { padding: 32px 0 40px; font-size: .85rem; }
+  footer .wrap { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; color: var(--muted); }
 
-  /* Entrada */
-  .rv { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s cubic-bezier(.2,.7,.2,1); }
+  .rv { opacity: 0; transform: translateY(14px); transition: opacity .6s ease, transform .6s ease; }
   .rv.in { opacity: 1; transform: none; }
   @media (prefers-reduced-motion: reduce) {
     .rv { opacity: 1; transform: none; transition: none; }
-    .ticker-track, .status::before { animation: none; }
+    .badge::before { animation: none; }
     html { scroll-behavior: auto; }
   }
 
-  /* ---------- Responsivo ---------- */
-  @media (max-width: 1000px) {
-    .head, .about, .svc-row, .tools-grid, .proj-content { grid-template-columns: 1fr; }
-    .head { gap: 8px; }
-    .about .photo { max-width: 240px; }
-    .filters { margin-left: 0; }
-    .proj-btn { grid-template-columns: 1fr auto; gap: 6px 16px; }
-    .proj-btn .mono:first-child { grid-column: 1 / -1; }
-    .proj-btn .tag { display: none; }
-    .links { grid-column: auto; }
-    .steps { grid-template-columns: 1fr 1fr; }
-    .hero-grid, .contact-grid { grid-template-columns: 1fr 1fr; }
-    .hero-grid > div:nth-child(3), .contact-grid > *:nth-child(3) { border-left: 0; padding-left: 0; }
-    .hero-grid > div:nth-child(n+3), .contact-grid > *:nth-child(n+3) { border-top: 1px solid var(--line); }
+  @media (max-width: 960px) {
+    .projects { grid-template-columns: 1fr 1fr; }
+    .hero-grid, .two, .about, .contact { grid-template-columns: 1fr; }
+    .contact { padding: 32px 24px; }
   }
-  @media (max-width: 720px) {
+  @media (max-width: 680px) {
     .wrap { padding: 0 16px; }
-    .bar { grid-template-columns: 1fr auto; }
+    section { padding: 56px 0; }
+    .hero { padding: 48px 0 40px; }
+    .projects { grid-template-columns: 1fr; }
+    .menu-btn { display: grid; }
     .bar nav {
-      display: none; position: absolute; top: 56px; left: 0; right: 0; flex-direction: column; gap: 0;
-      background: var(--bg); border-bottom: 1px solid var(--line);
+      display: none; position: absolute; top: 62px; left: 0; right: 0; flex-direction: column; gap: 0;
+      background: var(--bg); border-bottom: 1px solid var(--line); padding: 8px 16px 16px;
     }
     .bar nav.open { display: flex; }
-    .bar nav a { padding: 16px; border-top: 1px solid var(--soft); }
-    .bar nav a::after { display: none; }
-    .menu { display: inline-block; }
-    .tool.accent-btn { display: none; }
-    section.block { padding: 64px 0; }
-    .name .l2 { padding-left: 0; }
-    .hero-grid, .contact-grid, .steps { grid-template-columns: 1fr; }
-    .hero-grid > div, .contact-grid > * { border-left: 0 !important; padding-left: 0 !important; border-top: 1px solid var(--line); }
-    .hero-grid > div:first-child, .contact-grid > *:first-child { border-top: 0; }
-    .step { min-height: 0; gap: 28px; }
+    .bar nav a { padding: 12px; }
+    .panel { padding: 20px; }
   }
 </style>
 </head>
@@ -249,18 +193,20 @@
 
 <header>
   <div class="wrap bar">
-    <a href="#topo" class="logo">ML<span>/</span></a>
-    <nav id="nav" class="mono" aria-label="Principal">
-      <a href="#sobre">Sobre</a>
-      <a href="#servicos">Serviços</a>
+    <a href="#topo" class="logo"><i>ML</i>Mário Luiz</a>
+    <nav id="nav" aria-label="Principal">
       <a href="#projetos">Projetos</a>
-      <a href="#processo">Processo</a>
+      <a href="#servicos">Serviços</a>
+      <a href="#sobre">Sobre</a>
       <a href="#contato">Contato</a>
     </nav>
-    <div class="tools">
-      <button class="tool mono accent-btn" id="accentBtn" title="Trocar a cor de destaque"><span class="dot"></span>Cor</button>
-      <button class="tool mono" id="themeBtn">Tema</button>
-      <button class="tool mono menu" id="menuBtn" aria-expanded="false" aria-controls="nav">Menu</button>
+    <div style="display:flex;gap:8px">
+      <button class="icon-btn" id="themeBtn" aria-label="Alternar tema claro/escuro">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      </button>
+      <button class="icon-btn menu-btn" id="menuBtn" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
     </div>
   </div>
 </header>
@@ -269,255 +215,197 @@
 
   <!-- HERO -->
   <section class="hero">
-    <div class="wrap">
-      <div class="hero-top mono">
-        <span class="status">Disponível para novos projetos</span>
-        <span id="clock">Vale do Paraíba, SP</span>
+    <div class="wrap hero-grid">
+      <div class="rv">
+        <span class="badge">Disponível para novos projetos</span>
+        <h1>Software sob medida,<br><span>pensado antes de construído.</span></h1>
+        <p class="lead">Sou o Mário Luiz, desenvolvedor de software. Crio sites, aplicativos, sistemas, APIs e automações para negócios que precisam de tecnologia que funcione.</p>
+        <div class="cta">
+          <a href="#projetos" class="btn primary">Ver projetos →</a>
+          <a href="#contato" class="btn">Falar comigo</a>
+        </div>
       </div>
-      <h1 class="name" aria-label="Mário Luiz">
-        <span class="l1">Mário<span class="ac">.</span></span>
-        <span class="l2">Luiz</span>
-      </h1>
-      <div class="hero-grid">
-        <div><span class="mono">(Função)</span><p class="big">Desenvolvedor de software</p></div>
-        <div><span class="mono">(O que faço)</span><p>Sites, aplicativos, sistemas internos e automações sob medida.</p></div>
-        <div><span class="mono">(Onde)</span><p>Vale do Paraíba, SP. Atendo remoto para todo o Brasil.</p></div>
-        <div>
-          <span class="mono">(Próximo passo)</span>
-          <div class="cta-row">
-            <a href="#projetos" class="btn solid">Ver projetos ↓</a>
-            <a href="#contato" class="btn">Contato</a>
+      <aside class="profile rv" aria-label="Resumo">
+        <!-- Troque por <img src="foto.jpg" alt="Mário Luiz" class="avatar" style="object-fit:cover"> -->
+        <div class="avatar" aria-hidden="true">ML</div>
+        <h3>Mário Luiz</h3>
+        <p class="muted" style="font-size:.9rem">Desenvolvedor de software</p>
+        <dl>
+          <div><dt>Base</dt><dd>Vale do Paraíba, SP</dd></div>
+          <div><dt>Atendimento</dt><dd>Remoto · todo o Brasil</dd></div>
+          <div><dt>Foco</dt><dd>Web · Mobile · APIs · Automação</dd></div>
+          <div><dt>Projetos abertos</dt><dd id="projCount">—</dd></div>
+        </dl>
+      </aside>
+    </div>
+  </section>
+
+  <!-- PROJETOS -->
+  <section id="projetos">
+    <div class="wrap">
+      <div class="section-h rv">
+        <div><span class="eyebrow">Projetos</span><h2>Trabalhos com código aberto</h2></div>
+        <div class="filters" role="group" aria-label="Filtrar projetos">
+          <button class="chip" data-f="todos" aria-pressed="true">Todos</button>
+          <button class="chip" data-f="web" aria-pressed="false">Web</button>
+          <button class="chip" data-f="mobile" aria-pressed="false">Mobile</button>
+          <button class="chip" data-f="backend" aria-pressed="false">Back-end</button>
+          <button class="chip" data-f="seguranca" aria-pressed="false">Segurança</button>
+        </div>
+      </div>
+      <div class="projects" id="projects"></div>
+    </div>
+  </section>
+
+  <!-- SERVIÇOS + STACK -->
+  <section id="servicos">
+    <div class="wrap">
+      <div class="section-h rv"><div><span class="eyebrow">Serviços</span><h2>O que eu faço e com o quê</h2></div></div>
+      <div class="two">
+        <div class="panel rv">
+          <h3>Serviços</h3>
+          <div class="svc">
+            <div><i>🌐</i><p><b>Sites e landing pages</b><span>Rápidos, encontráveis no Google e prontos para converter.</span></p></div>
+            <div><i>📱</i><p><b>Aplicativos</b><span>Android, iOS e web a partir de uma base só.</span></p></div>
+            <div><i>📊</i><p><b>Sistemas e painéis</b><span>O que vive em planilha, organizado num lugar só.</span></p></div>
+            <div><i>⚙️</i><p><b>APIs e automações</b><span>Sistemas que conversam e tarefas que acontecem sozinhas.</span></p></div>
+          </div>
+        </div>
+        <div class="panel rv">
+          <h3>Tecnologias</h3>
+          <div class="tech">
+            <div><h4>Front-end & mobile</h4><div class="stack"><span>React</span><span>TypeScript</span><span>React Native</span><span>Expo</span><span>Astro</span><span>HTML & CSS</span></div></div>
+            <div><h4>Back-end & dados</h4><div class="stack"><span>Node.js</span><span>Express</span><span>PostgreSQL</span><span>Supabase</span><span>APIs REST</span><span>JWT</span></div></div>
+            <div><h4>Qualidade</h4><div class="stack"><span>Testes automatizados</span><span>Segurança</span><span>LGPD</span><span>Acessibilidade</span><span>Performance</span></div></div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <div class="ticker" aria-hidden="true">
-    <div class="ticker-track" id="ticker"></div>
-  </div>
-
-  <!-- SOBRE -->
-  <section class="block" id="sobre">
-    <div class="wrap">
-      <div class="head rv"><span class="mono">(01) Sobre</span><h2>Antes do código,<br>o problema.</h2></div>
-      <div class="about">
-        <!-- Troque por <img src="foto.jpg" alt="Mário Luiz" style="width:100%;height:100%;object-fit:cover"> -->
-        <div class="photo mono rv">Sua foto aqui</div>
-        <p class="lead rv">Construo software que <em>resolve</em> o que hoje vive em planilha, caderno e WhatsApp — e que continua funcionando quando o negócio cresce.</p>
-        <div class="text rv">
-          <p>Sou o Mário Luiz, desenvolvedor de software. Trabalho com pequenos negócios, prestadores de serviço, escolas e empreendedores que precisam de tecnologia que funcione, sem firula.</p>
-          <p>Começo entendendo a rotina de quem vai usar. Depois planejo, construo em etapas e entrego com tudo documentado.</p>
-          <dl class="facts mono">
-            <div><dt>Base</dt><dd>Vale do Paraíba, SP</dd></div>
-            <div><dt>Atendimento</dt><dd>Remoto · Brasil</dd></div>
-            <div><dt>Foco</dt><dd>Web · Mobile · Automação</dd></div>
-          </dl>
+  <!-- SOBRE + PROCESSO -->
+  <section id="sobre">
+    <div class="wrap about">
+      <div class="rv">
+        <span class="eyebrow">Sobre</span>
+        <h2>Antes do código, entender o problema.</h2>
+        <div class="text" style="margin-top:16px">
+          <p>Trabalho com pequenos negócios, prestadores de serviço, escolas e empreendedores. Muita empresa ainda vive em planilha, caderno e WhatsApp. Meu trabalho é transformar isso em um sistema simples de usar e fácil de manter.</p>
+          <p>Atendimento direto, sem intermediário: você fala com quem constrói.</p>
         </div>
       </div>
-    </div>
-  </section>
-
-  <!-- SERVIÇOS -->
-  <section class="block" id="servicos">
-    <div class="wrap">
-      <div class="head rv"><span class="mono">(02) Serviços</span><h2>O que eu<br>construo.</h2></div>
-      <div class="svc">
-        <div class="svc-row rv"><span class="mono">S—01</span><h3>Sites profissionais</h3><p>Institucional, landing page e catálogo. Rápido, encontrável no Google e coerente com a marca.</p></div>
-        <div class="svc-row rv"><span class="mono">S—02</span><h3>Aplicativos e web apps</h3><p>Responsivos, para Android e iOS, e integráveis com o que você já usa.</p></div>
-        <div class="svc-row rv"><span class="mono">S—03</span><h3>Sistemas e painéis</h3><p>Cadastros, pedidos, permissões e relatórios. O que vivia em planilha, num lugar só.</p></div>
-        <div class="svc-row rv"><span class="mono">S—04</span><h3>Integrações e automações</h3><p>Sistemas que conversam entre si. Tarefas repetitivas que passam a acontecer sozinhas.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- PROJETOS -->
-  <section class="block" id="projetos">
-    <div class="wrap">
-      <div class="head rv"><span class="mono">(03) Projetos</span><h2>Trabalhos<br>selecionados.</h2></div>
-      <div class="filters mono rv" role="group" aria-label="Filtrar projetos">
-        <button class="chip" data-f="todos" aria-pressed="true">Todos</button>
-        <button class="chip" data-f="site" aria-pressed="false">Sites</button>
-        <button class="chip" data-f="app" aria-pressed="false">Apps</button>
-        <button class="chip" data-f="sistema" aria-pressed="false">Sistemas</button>
-        <button class="chip" data-f="automacao" aria-pressed="false">Automações</button>
-      </div>
-      <div class="projects" id="projects"></div>
-    </div>
-  </section>
-
-  <!-- PROCESSO -->
-  <section class="block" id="processo">
-    <div class="wrap">
-      <div class="head rv"><span class="mono">(04) Processo</span><h2>Cinco etapas.<br>Nenhuma opcional.</h2></div>
       <div class="steps rv">
-        <div class="step"><span class="num">01</span><div><h3>Entender</h3><p>Conversa sobre o negócio, a rotina e onde está o gargalo de verdade.</p></div></div>
-        <div class="step"><span class="num">02</span><div><h3>Planejar</h3><p>Escopo, prazo e valor definidos antes da primeira linha de código.</p></div></div>
-        <div class="step"><span class="num">03</span><div><h3>Construir</h3><p>Entregas em etapas, com você acompanhando e validando cada parte.</p></div></div>
-        <div class="step"><span class="num">04</span><div><h3>Entregar</h3><p>Publicação, treinamento da equipe e documentação do que foi feito.</p></div></div>
-        <div class="step"><span class="num">05</span><div><h3>Evoluir</h3><p>Suporte, ajustes e novas funções conforme o negócio cresce.</p></div></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FERRAMENTAS -->
-  <section class="block" id="stack">
-    <div class="wrap">
-      <div class="head rv"><span class="mono">(05) Ferramentas</span><h2>A base<br>técnica.</h2></div>
-      <div class="tools-grid rv">
-        <span></span>
-        <div><h3>Front-end & mobile</h3><ul><li>React · TypeScript</li><li>Astro</li><li>React Native · Expo</li><li>HTML, CSS, acessibilidade</li></ul></div>
-        <div><h3>Back-end & dados</h3><ul><li>Node.js · Express</li><li>PostgreSQL</li><li>Supabase</li><li>APIs e integrações</li></ul></div>
-        <div><h3>Qualidade & entrega</h3><ul><li>Testes automatizados</li><li>Segurança e LGPD</li><li>Performance</li><li>Deploy e monitoramento</li></ul></div>
+        <div class="step"><p><b>Entender</b><span>Conversa sobre a rotina e onde está o gargalo de verdade.</span></p></div>
+        <div class="step"><p><b>Planejar</b><span>Escopo, prazo e valor definidos antes do código.</span></p></div>
+        <div class="step"><p><b>Construir</b><span>Entregas em etapas, com você validando cada parte.</span></p></div>
+        <div class="step"><p><b>Entregar e evoluir</b><span>Publicação, treinamento e suporte conforme o negócio cresce.</span></p></div>
       </div>
     </div>
   </section>
 
   <!-- CONTATO -->
-  <section class="contact" id="contato">
+  <section id="contato">
     <div class="wrap">
-      <span class="mono">(06) Contato · Primeira conversa sem compromisso</span>
-      <!-- Troque pelo seu e-mail -->
-      <a class="mega" href="mailto:seuemail@exemplo.com">Vamos<br>conversar <span class="arr">→</span></a>
-      <div class="contact-grid mono">
-        <!-- Troque 5512900000000 pelo seu número com DDI+DDD -->
-        <a href="https://wa.me/5512900000000?text=Ol%C3%A1%20M%C3%A1rio%2C%20vim%20pelo%20portf%C3%B3lio" target="_blank" rel="noopener">WhatsApp<b>Chamar agora ↗</b></a>
-        <a href="mailto:seuemail@exemplo.com">E-mail<b>seuemail@exemplo.com</b></a>
-        <a href="https://github.com/V0RTEX51" target="_blank" rel="noopener">GitHub<b>@V0RTEX51 ↗</b></a>
-        <a href="#" target="_blank" rel="noopener">LinkedIn<b>Mário Luiz ↗</b></a>
+      <div class="contact rv">
+        <div>
+          <h2>Tem um projeto em mente?</h2>
+          <p>Me conta o que você precisa. A primeira conversa é sem compromisso.</p>
+        </div>
+        <div class="list">
+          <!-- Troque 5512900000000 pelo seu número com DDI+DDD -->
+          <a href="https://wa.me/5512900000000?text=Ol%C3%A1%20M%C3%A1rio%2C%20vim%20pelo%20portf%C3%B3lio" target="_blank" rel="noopener">WhatsApp <small>Chamar agora ↗</small></a>
+          <!-- Troque pelo seu e-mail -->
+          <a href="mailto:seuemail@exemplo.com">E-mail <small>seuemail@exemplo.com</small></a>
+          <a href="https://github.com/V0RTEX51" target="_blank" rel="noopener">GitHub <small>@V0RTEX51 ↗</small></a>
+          <a href="#" target="_blank" rel="noopener">LinkedIn <small>Mário Luiz ↗</small></a>
+        </div>
       </div>
     </div>
   </section>
 </main>
 
 <footer>
-  <div class="wrap mono">
-    <span>© <span id="year"></span> Mário Luiz</span>
-    <a href="#topo">Voltar ao topo ↑</a>
-  </div>
+  <div class="wrap"><span>© <span id="year"></span> Mário Luiz</span><a href="#topo">Voltar ao topo ↑</a></div>
 </footer>
 
 <script>
 /* ============================================================
-   PROJETOS — para adicionar um projeto, copie um item da lista.
-   cat: site | app | sistema | automacao
+   PROJETOS — para adicionar, copie um item da lista.
+   cat: web | mobile | backend | seguranca
    ============================================================ */
 const GITHUB = "https://github.com/V0RTEX51";
-const PAGES = "https://V0RTEX51.github.io";
+const PAGES = "https://v0rtex51.github.io";
 
 const PROJETOS = [
   {
-    cat: "sistema", tag: "Sistema interno", ano: "2026", titulo: "Sistema de Pedidos",
-    problema: "Pequenos negócios que recebem pedidos por WhatsApp e controlam tudo em planilha acabam perdendo itens e sem saber o estoque real.",
-    solucao: "Painel web com cadastro de clientes e produtos, pedidos com vários itens, fluxo de status e baixa automática de estoque. Cancelar devolve os itens. Também exporta os pedidos em CSV.",
-    resultado: "O sistema bloqueia pedidos sem estoque, avisa o que está acabando e mostra o faturamento do mês.",
-    stack: ["JavaScript", "HTML", "CSS", "localStorage"],
-    demo: `${PAGES}/sistema-pedidos/`, codigo: `${GITHUB}/sistema-pedidos`
+    cat: "web", tag: "Sistema web", icone: "📦", cor: "#2A3DFF", titulo: "Sistema de Pedidos",
+    resumo: "Pedidos, estoque e entregas num painel só, com baixa automática de estoque e exportação em CSV.",
+    stack: ["JavaScript", "HTML/CSS"], demo: `${PAGES}/sistema-pedidos/`, codigo: `${GITHUB}/sistema-pedidos`
   },
   {
-    cat: "site", tag: "Landing page", ano: "2026", titulo: "Landing Page Local",
-    problema: "Clínicas, escritórios e estúdios que dependem só de indicação e não aparecem nas buscas da região.",
-    solucao: "Landing page leve, num arquivo único, com serviços, passo a passo e dúvidas frequentes. Todos os botões levam ao WhatsApp, configurado num só lugar.",
-    resultado: "SEO local com dados estruturados schema.org, acessível e responsiva. Para adaptar a outra marca, basta trocar algumas variáveis.",
-    stack: ["HTML", "CSS", "SEO local", "Acessibilidade"],
-    demo: `${PAGES}/landing-page-servicos/`, codigo: `${GITHUB}/landing-page-servicos`
+    cat: "web", tag: "Dashboard", icone: "📊", cor: "#0EA5A4", titulo: "Painel de Vendas",
+    resumo: "Indicadores, gráficos interativos e filtros por período, região e categoria.",
+    stack: ["JavaScript", "Chart.js"], demo: `${PAGES}/dashboard-vendas/`, codigo: `${GITHUB}/dashboard-vendas`
   },
   {
-    cat: "automacao", tag: "Automação", ano: "2026", titulo: "Lembretes de Cobrança",
-    problema: "Secretarias de escola que passam dias por mês conferindo pagamentos e mandando mensagem um a um.",
-    solucao: "Automação em Node.js que lê a planilha de mensalidades e gera lembretes antes do vencimento e avisos de atraso, com mensagem e link do WhatsApp prontos.",
-    resultado: "Sem dependências e com testes automatizados. Linhas com dados inválidos são reportadas sem interromper o processamento.",
-    stack: ["Node.js", "Testes", "CSV", "WhatsApp"],
-    codigo: `${GITHUB}/lembretes-cobranca`
+    cat: "mobile", tag: "App mobile", icone: "📅", cor: "#8A5CFF", titulo: "Agenda de Atendimentos",
+    resumo: "App para profissionais autônomos organizarem clientes e horários, com versão web.",
+    stack: ["React Native", "Expo"], demo: `${PAGES}/agenda-app/`, codigo: `${GITHUB}/agenda-app`
+  },
+  {
+    cat: "backend", tag: "API REST", icone: "🔌", cor: "#F59E0B", titulo: "API de Tarefas",
+    resumo: "API com autenticação JWT, PostgreSQL, validação de dados e testes automatizados.",
+    stack: ["Node.js", "Express", "PostgreSQL"], codigo: `${GITHUB}/api-tarefas`
+  },
+  {
+    cat: "seguranca", tag: "Segurança", icone: "🛡️", cor: "#E11D74", titulo: "Analisador de Cabeçalhos",
+    resumo: "Avalia os cabeçalhos de segurança HTTP de um site e explica como corrigir cada ponto.",
+    stack: ["JavaScript", "Node.js", "Testes"], demo: `${PAGES}/analisador-seguranca/`, codigo: `${GITHUB}/analisador-seguranca`
+  },
+  {
+    cat: "web", tag: "Landing page", icone: "🦷", cor: "#2F6F6A", titulo: "Landing Page Local",
+    resumo: "Página para negócio local com WhatsApp, SEO local e dados estruturados.",
+    stack: ["HTML", "CSS", "SEO"], demo: `${PAGES}/landing-page-servicos/`, codigo: `${GITHUB}/landing-page-servicos`
+  },
+  {
+    cat: "backend", tag: "Automação", icone: "⏰", cor: "#475569", titulo: "Lembretes de Cobrança",
+    resumo: "Lê a planilha de mensalidades e gera lembretes e avisos de atraso prontos para o WhatsApp.",
+    stack: ["Node.js", "Testes"], codigo: `${GITHUB}/lembretes-cobranca`
   }
 ];
 
 const $ = s => document.querySelector(s);
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 
-/* Projetos: lista com abre/fecha */
-$("#projects").innerHTML = PROJETOS.map((p, i) => `
+$("#projects").innerHTML = PROJETOS.map(p => `
   <article class="proj rv" data-cat="${p.cat}">
-    <button class="proj-btn" aria-expanded="false" aria-controls="pb${i}">
-      <span class="mono">P—${String(i + 1).padStart(2, "0")} · ${esc(p.ano)}</span>
+    <div class="thumb" style="--tint:${p.cor}" aria-hidden="true">${p.icone}</div>
+    <div class="proj-body">
+      <span class="tag">${esc(p.tag)}</span>
       <h3>${esc(p.titulo)}</h3>
-      <span class="mono tag">${esc(p.tag)} · Demo</span>
-      <span class="arrow" aria-hidden="true">+</span>
-    </button>
-    <div class="proj-body" id="pb${i}">
-      <div class="proj-inner">
-        <div class="proj-content">
-          <div class="stack mono">${p.stack.map(s => `<span>${esc(s)}</span>`).join("")}</div>
-          <div><h4 class="mono">Cenário</h4><p>${esc(p.problema)}</p></div>
-          <div><h4 class="mono">Construído</h4><p>${esc(p.solucao)}</p></div>
-          <div><h4 class="mono">Destaques</h4><p>${esc(p.resultado)}</p></div>
-          <div class="links">
-            ${p.demo ? `<a class="btn solid" href="${p.demo}" target="_blank" rel="noopener">Ver demo ↗</a>` : ""}
-            ${p.codigo ? `<a class="btn" href="${p.codigo}" target="_blank" rel="noopener">Código no GitHub ↗</a>` : ""}
-          </div>
-        </div>
+      <p>${esc(p.resumo)}</p>
+      <div class="stack">${p.stack.map(s => `<span>${esc(s)}</span>`).join("")}</div>
+      <div class="links">
+        ${p.demo ? `<a class="btn sm primary" href="${p.demo}" target="_blank" rel="noopener">Ver demo ↗</a>` : ""}
+        <a class="btn sm" href="${p.codigo}" target="_blank" rel="noopener">Código</a>
       </div>
     </div>
   </article>`).join("");
-
-$("#projects").addEventListener("click", e => {
-  const btn = e.target.closest(".proj-btn"); if (!btn) return;
-  const art = btn.parentElement;
-  const open = art.classList.toggle("open");
-  btn.setAttribute("aria-expanded", open);
-});
+$("#projCount").textContent = PROJETOS.length;
 
 document.querySelectorAll(".chip").forEach(c => c.addEventListener("click", () => {
   document.querySelectorAll(".chip").forEach(x => x.setAttribute("aria-pressed", x === c));
   document.querySelectorAll(".proj").forEach(p =>
     p.classList.toggle("hidden", c.dataset.f !== "todos" && p.dataset.cat !== c.dataset.f));
 }));
-/* Esconde filtros de categorias sem projeto */
-document.querySelectorAll(".chip").forEach(c => {
-  if (c.dataset.f !== "todos" && !PROJETOS.some(p => p.cat === c.dataset.f)) c.hidden = true;
-});
 
-/* Faixa rolante */
-const itens = ["Sites", "Aplicativos", "Sistemas", "Automações", "Integrações", "Painéis", "APIs"];
-$("#ticker").innerHTML = [...itens, ...itens, ...itens, ...itens].map(t => `<span>${t}</span>`).join("");
-
-/* Relógio local */
-function tick() {
-  const t = new Date().toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit", second: "2-digit", timeZone: "America/Sao_Paulo" });
-  $("#clock").textContent = `Vale do Paraíba, SP · ${t}`;
-}
-tick(); setInterval(tick, 1000);
-
-/* Tema e cor de destaque */
+/* Tema */
 const root = document.documentElement;
-const CORES = [
-  { light: "#2A3DFF", dark: "#4657FF", onDark: "#F4F3EE" },
-  { light: "#FF4F1A", dark: "#FF7A45" },
-  { light: "#E0157A", dark: "#FF5CA8" },
-  { light: "#00875A", dark: "#3DDC97" },
-];
-let cor = 0;
-const isDark = () => root.dataset.theme ? root.dataset.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
-function aplicarCor() {
-  const c = CORES[cor];
-  root.style.setProperty("--accent", isDark() ? c.dark : c.light);
-  root.style.setProperty("--on-accent", isDark() ? (c.onDark || "#0E0E0E") : "#F4F3EE");
-}
-try {
-  const t = localStorage.getItem("tema"); if (t) root.dataset.theme = t;
-  cor = Number(localStorage.getItem("cor")) || 0;
-} catch (_) {}
-aplicarCor();
-matchMedia("(prefers-color-scheme: dark)").addEventListener("change", aplicarCor);
+try { const t = localStorage.getItem("tema"); if (t) root.dataset.theme = t; } catch (_) {}
 $("#themeBtn").onclick = () => {
-  root.dataset.theme = isDark() ? "light" : "dark";
+  const dark = root.dataset.theme ? root.dataset.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+  root.dataset.theme = dark ? "light" : "dark";
   try { localStorage.setItem("tema", root.dataset.theme); } catch (_) {}
-  aplicarCor();
-};
-$("#accentBtn").onclick = () => {
-  cor = (cor + 1) % CORES.length;
-  try { localStorage.setItem("cor", cor); } catch (_) {}
-  aplicarCor();
 };
 
 /* Menu mobile */
@@ -532,7 +420,7 @@ $("#nav").addEventListener("click", e => {
 /* Entrada ao rolar */
 const io = new IntersectionObserver(es => es.forEach(e => {
   if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
-}), { threshold: .1 });
+}), { threshold: .08 });
 document.querySelectorAll(".rv").forEach(el => io.observe(el));
 
 $("#year").textContent = new Date().getFullYear();
