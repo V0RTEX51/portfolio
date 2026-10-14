@@ -22,12 +22,12 @@
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
       --bg: #0E0E0E; --ink: #ECEBE4; --muted: #8E8D86; --line: #ECEBE4; --soft: rgba(236,235,228,.08);
-      --accent: #C6F432; --on-accent: #0E0E0E;
+      --accent: #4657FF; --on-accent: #F4F3EE;
     }
   }
   :root[data-theme="dark"] {
     --bg: #0E0E0E; --ink: #ECEBE4; --muted: #8E8D86; --line: #ECEBE4; --soft: rgba(236,235,228,.08);
-    --accent: #C6F432; --on-accent: #0E0E0E;
+    --accent: #4657FF; --on-accent: #F4F3EE;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -491,7 +491,7 @@ tick(); setInterval(tick, 1000);
 /* Tema e cor de destaque */
 const root = document.documentElement;
 const CORES = [
-  { light: "#2A3DFF", dark: "#C6F432" },
+  { light: "#2A3DFF", dark: "#4657FF", onDark: "#F4F3EE" },
   { light: "#FF4F1A", dark: "#FF7A45" },
   { light: "#E0157A", dark: "#FF5CA8" },
   { light: "#00875A", dark: "#3DDC97" },
@@ -501,7 +501,7 @@ const isDark = () => root.dataset.theme ? root.dataset.theme === "dark" : matchM
 function aplicarCor() {
   const c = CORES[cor];
   root.style.setProperty("--accent", isDark() ? c.dark : c.light);
-  root.style.setProperty("--on-accent", isDark() ? "#0E0E0E" : "#F4F3EE");
+  root.style.setProperty("--on-accent", isDark() ? (c.onDark || "#0E0E0E") : "#F4F3EE");
 }
 try {
   const t = localStorage.getItem("tema"); if (t) root.dataset.theme = t;
